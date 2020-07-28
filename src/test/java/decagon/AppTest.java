@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
 
 /**
@@ -43,5 +45,17 @@ public class AppTest
         b.AddCustomer(c2);
         assertNotNull(b.getCustomers());
         assertEquals(1, b.getCustomers().size());
+    }
+
+    @Test
+    public void shouldAddTransactionCorrectly()
+    {
+        Bank b = new Bank();
+        Customer c = new Customer(1, "Spankie");
+        b.AddCustomer(c);
+        Transaction t = new Transaction(1, c.getId(), "dep", 3000); // should not add this...
+        List<Transaction> ct = b.getCustomerTransactions(c.getId());
+        assertNotNull(ct);
+        assertEquals(1, ct.size());
     }
 }

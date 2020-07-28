@@ -2,7 +2,6 @@ package decagon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -10,6 +9,7 @@ import org.junit.Test;
 
 /**
  * Unit test for simple App.
+ * 
  */
 public class AppTest 
 {
@@ -21,8 +21,8 @@ public class AppTest
     {
         Bank b = new Bank();
         assertNotNull(b);
-        // assertNotNull(b.getTransactions());
-        // assertNotNull(b.getCustomers());
+        assertNotNull(b.getTransactions());
+        assertNotNull(b.getCustomers());
     }
 
     @Test
@@ -48,12 +48,13 @@ public class AppTest
     }
 
     @Test
-    public void shouldAddTransactionCorrectly()
+    public void shouldNotAddIncorrectTypeOfTransaction()
     {
         Bank b = new Bank();
         Customer c = new Customer(1, "Spankie");
         b.AddCustomer(c);
         Transaction t = new Transaction(1, c.getId(), "dep", 3000); // should not add this...
+        b.AddTransaction(c.getId(), t);
         List<Transaction> ct = b.getCustomerTransactions(c.getId());
         assertNotNull(ct);
         assertEquals(1, ct.size());
